@@ -1,10 +1,10 @@
 
 ##DATA FORMATTING
 {
-    data1 <- read.csv("D:/surff/Desktop/STAT 684/Final Project Data/baseballdata.csv", stringsAsFactors = F)
-    data2 <- read.csv("D:/surff/Desktop/STAT 684/Final Project Data/MoneyBall_baseball.csv", stringsAsFactors = F)
-    pitch_data <- read.csv("D:/surff/Desktop/STAT 684/Final Project Data/Pitching_Data.csv", stringsAsFactors = F)
-    pitch_data_no_lg <- read.csv("D:/surff/Desktop/STAT 684/Final Project Data/Pitching_Data_No_LG.csv", stringsAsFactors = F)
+    data1 <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/baseballdata.csv", stringsAsFactors = F)
+    data2 <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/MoneyBall_baseball.csv", stringsAsFactors = F)
+    pitch_data <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/Pitching_Data.csv", stringsAsFactors = F)
+    pitch_data_no_lg <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/Pitching_Data_No_LG.csv", stringsAsFactors = F)
     
     library(tidyverse)
     
@@ -84,15 +84,15 @@
     
     
     pitch_data_no_lg$current <- ifelse(pitch_data_no_lg$Tm=="ANA", "LAA", 
-                                 ifelse(pitch_data_no_lg$Tm=="CAL", "LAA",
-                                        ifelse(pitch_data_no_lg$Tm=="FLA", "MIA",
-                                               ifelse(pitch_data_no_lg$Tm=="KCA", "OAK",
-                                                      ifelse(pitch_data_no_lg$Tm=="MLN", "ATL",
-                                                             ifelse(pitch_data_no_lg$Tm=="MON", "WSN",
-                                                                    ifelse(pitch_data_no_lg$Tm=="SEP", "MIL",
-                                                                           ifelse(pitch_data_no_lg$Tm=="TBD", "TBR",
-                                                                                  ifelse(pitch_data_no_lg$Tm=="WSA", "TEX", 
-                                                                                         as.character(pitch_data_no_lg$Tm))))))))))
+                                       ifelse(pitch_data_no_lg$Tm=="CAL", "LAA",
+                                              ifelse(pitch_data_no_lg$Tm=="FLA", "MIA",
+                                                     ifelse(pitch_data_no_lg$Tm=="KCA", "OAK",
+                                                            ifelse(pitch_data_no_lg$Tm=="MLN", "ATL",
+                                                                   ifelse(pitch_data_no_lg$Tm=="MON", "WSN",
+                                                                          ifelse(pitch_data_no_lg$Tm=="SEP", "MIL",
+                                                                                 ifelse(pitch_data_no_lg$Tm=="TBD", "TBR",
+                                                                                        ifelse(pitch_data_no_lg$Tm=="WSA", "TEX", 
+                                                                                               as.character(pitch_data_no_lg$Tm))))))))))
     pitch_data_no_lg$RA.G <- as.numeric(pitch_data_no_lg$RA.G)
     pitch_data_no_lg$ERA <- as.numeric(pitch_data_no_lg$ERA)
     pitch_data_no_lg$CG <- as.numeric(pitch_data_no_lg$CG)
@@ -122,7 +122,7 @@
     pitch_data_no_lg$G <- as.numeric(pitch_data_no_lg$G)
     
     pitch_data_no_lg$join_val <- paste(pitch_data_no_lg$current,"-",pitch_data_no_lg$Year)
-
+    
     data1_trim <- data1[data1$Year>=1962,]
     data1_trim <- data1_trim[data1_trim$Year<=2012,]
     
@@ -206,12 +206,16 @@ predict_test_cutoff <- function(model, cutoff) {
     backward_BIC_RA <- step(RA_lm1, k=log(nrow(train_RA)))
     summary(backward_BIC_RA)
     #plot(backward_BIC_RA)
-
+    RA_lm_simple <- lm(RA.G ~ (ERA + WHIP + tSho.G), train_RA)
+    summary(RA_lm_simple)
+    
     #Attendance + + BA + SLG
     train_RS <- train
     f <- "RS.G ~ (OBP   +  BatAge + Num.Bat + WAR)^2"
     RS_lm1 <- lm(f, train_RS)
     summary(RS_lm1)
+    RS_lm_simple <- lm(RS.G ~ (OBP   +  BatAge + Num.Bat), train_RS)
+    summary(RS_lm_simple)
     
     backward_BIC_RS <- step(RS_lm1, k=log(nrow(train_RS)))
     summary(backward_BIC_RS)
