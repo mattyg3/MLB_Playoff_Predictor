@@ -1,0 +1,11 @@
+name: mlb_playoff_predictor
+title:
+username:
+account: mattyg3
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5714762
+bundleId: 5612717
+url: https://mattyg3.shinyapps.io/mlb_playoff_predictor/
+when: 1645685821.74136
+lastSyncTime: 1645685821.74136

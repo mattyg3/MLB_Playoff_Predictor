@@ -1,5 +1,8 @@
 
 library(shiny)
+library(ggplot2)
+library(ggthemes)
+
 
 load("SavedModels/RA_model.rda")
 load("SavedModels/RS_model.rda")
@@ -36,7 +39,7 @@ shinyServer(function(input, output) {
         #predictionW <- paste("Wins: ", pred_lm3.2, sep="")
         predictionW <- pred_lm3.2
         
-        test_P <- data.frame(win_adj = pred_lm3)
+        test_P <- data.frame(win_adj = pred_lm3.2)
         #colnames(test_P) <- "win_adj"
         
         pred_glm1 <- predict(glm1, newdata = test_P, type = "response")
@@ -50,6 +53,19 @@ shinyServer(function(input, output) {
     
     pred_vector <- reactive(trainModels(test_data()))
     
+    
+
+    gplot_render <- reactive({
+        gplot1 <- ggplot(data=dataImport2, aes(round(win_adj))) + 
+            geom_freqpoly(binwidth=6, size=2) +
+            xlab("Number of Wins: 1962-2021") +
+            ylab("Count of MLB Teams") +
+            xlim(c(0,162)) +
+            geom_vline(xintercept=as.numeric(pred_vector()[1]), color="red", size=2) +
+            geom_vline(xintercept=92, color="black", size=2, linetype=2)
+        gplot1 + theme_economist()
+    }) 
+    
     output$pred_W <- renderText({
         pred_vector()[1]
     })
@@ -58,5 +74,12 @@ shinyServer(function(input, output) {
         pred_vector()[2]
     })
     
+    
+    ###create ggplot
+    output$plot1 <- renderPlot({
+        gplot_render()
+
+    })
+
 
 })

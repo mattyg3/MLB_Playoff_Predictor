@@ -1,10 +1,10 @@
 
 ##DATA FORMATTING
 {
-    data1 <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/baseballdata.csv", stringsAsFactors = F)
-    data2 <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/MoneyBall_baseball.csv", stringsAsFactors = F)
-    pitch_data <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/Pitching_Data.csv", stringsAsFactors = F)
-    pitch_data_no_lg <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/Pitching_Data_No_LG.csv", stringsAsFactors = F)
+    data1 <- read.csv("baseballdata.csv", stringsAsFactors = F)
+    data2 <- read.csv("MoneyBall_baseball.csv", stringsAsFactors = F)
+    pitch_data <- read.csv("Pitching_Data.csv", stringsAsFactors = F)
+    pitch_data_no_lg <- read.csv("Pitching_Data_No_LG.csv", stringsAsFactors = F)
     
     library(tidyverse)
     

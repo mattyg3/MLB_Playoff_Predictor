@@ -1,10 +1,10 @@
 
 ##DATA FORMATTING
 {
-    data1 <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/baseballdata.csv", stringsAsFactors = F)
-    data2 <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/MoneyBall_baseball.csv", stringsAsFactors = F)
-    pitch_data <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/Pitching_Data.csv", stringsAsFactors = F)
-    pitch_data_no_lg <- read.csv("D:/surff/Desktop/TAMU Class Folders/STAT 684/Final Project Data/Pitching_Data_No_LG.csv", stringsAsFactors = F)
+    data1 <- read.csv("baseballdata.csv", stringsAsFactors = F)
+    data2 <- read.csv("MoneyBall_baseball.csv", stringsAsFactors = F)
+    pitch_data <- read.csv("Pitching_Data.csv", stringsAsFactors = F)
+    pitch_data_no_lg <- read.csv("Pitching_Data_No_LG.csv", stringsAsFactors = F)
     
     library(tidyverse)
     
@@ -156,6 +156,6 @@
     #win_adj, playoffs.x
     final_set <- join_data2[,c(7:10,36,38,39,43,49,53,74:81,84:90)]
     
-    write.csv(final_set, file="D:/surff/Desktop/MLB_Playoff_Predictor/CleanData/final_set.csv", row.names = F)
-    write.csv(join_data2, file="D:/surff/Desktop/MLB_Playoff_Predictor/CleanData/total_join_set.csv", row.names = F)
+    write.csv(final_set, file="final_set.csv", row.names = F)
+    write.csv(join_data2, file="total_join_set.csv", row.names = F)
 }
