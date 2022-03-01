@@ -3,6 +3,11 @@
 dataImport <- read.csv("final_set.csv")
 dataImport2 <- read.csv("total_join_set.csv")
 
+dataImport2 <- dataImport2[dataImport2$Year.x>1964,]
+
+#save dataImport2 for meta data
+save(dataImport2,file='SavedModels/dataImport2.rda')
+
 set.seed(3743)
 par(mfrow=c(2,2))
 
@@ -29,4 +34,21 @@ f_P <- "Playoffs.x ~ win_adj" #logistic model for making the playoffs
 glm1 <- glm(f_P, data=dataImport, family="binomial")
 summary(glm1)
 save(glm1, file="SavedModels/P_model.rda")
+
+
+
+Team <- c(unique(dataImport2$Team))
+team_name <- unique(dataImport2$Tm.x)
+tdf <- data.frame(cbind(Team,team_name))
+df <- left_join(tdf, dataImport2[,c(1,22,23)], by="Team")
+team_df <- df[!duplicated(df[c('Tm.x')]),]
+team_df <- team_df[,-3]
+
+#fix formatting for selectinput
+team_df$Lg[team_df$Team=='KCA'] = 'AL Central'
+team_df$Lg[team_df$Team=='MLN'] = 'NL Central'
+
+
+##Save team_df
+save(team_df, file='SavedModels/team_df.rda')
 
